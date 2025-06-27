@@ -1,3 +1,7 @@
+:root {
+  --navColor: orange;
+}
+
 body {
   margin: 0;
 }
@@ -5,7 +9,7 @@ body {
 nav {
   width: 80%;
   height: 4rem;
-  background-color: orange;
+  background-color: var(--navColor);
   display: flex;
   align-items: center;
   padding: 6px;
@@ -39,11 +43,88 @@ a > i {
   margin: 3px;
 }
 
+.img-gallery {
+  width: 100%;
+  height: 500px;
+  justify-items: center;
+  align-content: center;
+}
+
 .wallpaper {
   position: absolute;
   width: 100%;
   height: 600px;
   top: 0;
   margin: 0;
-  opacity: 0.5;
+  background-color: gray;
+
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+}
+
+.title-tag {
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tagline {
+  z-index: 1;
+  color: white;
+  font-size: 55px;
+  letter-spacing: 1.5;
+  font-weight: bolder;
+  text-shadow: 3px 3px 3px gray;
+}
+.btn {
+  width: 200px;
+  height: 70px;
+  padding: 10px;
+  font-size: 30px;
+  color: white;
+  background-color: var(--navColor);
+  border: 2px solid white;
+  border-radius: 30px;
+  font-weight: bolder;
+  z-index: 1;
+  cursor: pointer;
+  transition: ease-in-out 1s;
+}
+
+.btn:hover {
+  transform: scale(1.3);
+  border-color: transparent;
+}
+
+.item-show {
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+}
+.item {
+  display: flex;
+  width: 80%;
+  position: relative;
+  top: 2rem;
+}
+.img-item {
+  background-color: var(--navColor);
+  width: 40rem;
+  height: 30rem;
+  border-radius: 65% 35% 34% 66% / 41% 22% 78% 59%;
+
+  justify-items: center;
+  align-content: center;
+  text-align: center;
+  transition: 500ms ease-in-out;
+}
+
+.img-item-show {
+  border-radius: 81% 19% 15% 85% / 71% 66% 34% 29%;
+}
+.img-item > img {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 25%;
 }

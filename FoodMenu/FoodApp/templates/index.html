@@ -7,6 +7,28 @@
     class="wallpaper"
     srcset=""
   />
+  <div class="title-tag">
+    <h1 class="tagline">Eat Delecious Food, Incredible Health</h1>
+    <button type="submit" class="btn">Let's Buy</button>
+  </div>
+</div>
+
+<div class="item-show">
+  {% for item in items %}
+  <div class="item item{{ forloop.counter }}">
+    <div class="img-item">
+      <img src="media/{{ item.0.img_name }}" alt="" />
+    </div>
+    <div class="item-desc">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
+        explicabo praesentium voluptatum sit aliquam veritatis eius, molestias
+        fugiat rem dolor ex ratione vitae perspiciatis nihil porro sapiente a
+        totam maxime!
+      </p>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% include "footer.html" %}
