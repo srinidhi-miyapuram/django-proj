@@ -3,7 +3,7 @@ from .models import FoodItem, WallPaper
 
 # Create your views here.
 def index(request):
-    data = get_wallpaper("wallpaper2")
+    data = get_wallpaper()
     item_names = ['burger', 'pie']
     items = get_items(item_names)
 
@@ -26,8 +26,8 @@ def get_item(item):
     return data
 
 
-def get_wallpaper(page):
-    data = WallPaper.objects.filter(name=page)
+def get_wallpaper():
+    data = WallPaper.objects.all()
     return data
 
 def get_items(lis):

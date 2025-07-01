@@ -1,5 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merienda:wght@300..900&display=swap");
+
 :root {
   --navColor: orange;
+  --font-fam: Merienda;
 }
 
 body {
@@ -57,6 +62,7 @@ a > i {
   top: 0;
   margin: 0;
   background-color: gray;
+  position: fixed;
 
   opacity: 0.7;
   mix-blend-mode: multiply;
@@ -99,8 +105,12 @@ a > i {
 
 .item-show {
   width: 100%;
+  height: 1000px;
+  position: relative;
   justify-items: center;
   align-items: center;
+  background-color: white;
+  font-family: var(--font-fam);
 }
 .item {
   display: flex;
@@ -111,20 +121,82 @@ a > i {
 .img-item {
   background-color: var(--navColor);
   width: 40rem;
-  height: 30rem;
-  border-radius: 65% 35% 34% 66% / 41% 22% 78% 59%;
+  height: 26rem;
 
   justify-items: center;
   align-content: center;
   text-align: center;
-  transition: 500ms ease-in-out;
+  animation: shapeChanger 1s alternate infinite;
 }
 
-.img-item-show {
-  border-radius: 81% 19% 15% 85% / 71% 66% 34% 29%;
-}
 .img-item > img {
   width: 20rem;
   height: 20rem;
   border-radius: 25%;
+  animation: imgZoom 1s infinite alternate-reverse;
+}
+
+@keyframes shapeChanger {
+  from {
+    border-radius: 42% 58% 41% 59% / 73% 76% 24% 27%;
+  }
+  to {
+    border-radius: 33% 67% 57% 43% / 28% 19% 81% 72%;
+  }
+}
+
+@keyframes imgZoom {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.item2 {
+  flex-direction: row-reverse;
+}
+
+.item-desc {
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+  display: flex;
+  margin: 1rem;
+  padding: 1.5rem;
+}
+
+.item-desc > p {
+  text-align: justify;
+  white-space: normal;
+  font-size: 25px;
+}
+
+.items-slide {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: rgb(188, 178, 178);
+}
+
+.items-slide img {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  mix-blend-mode: multiply;
+}
+
+.items-slide h1 {
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  text-align: center;
+  margin: 0;
+  font-size: 35px;
+  font-family: var(--font-fam);
+  color: white;
+}
+
+@keyframes identifier {
 }

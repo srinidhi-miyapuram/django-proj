@@ -2,7 +2,7 @@
 
 <div class="img-gallery">
   <img
-    src="media/{{ data.0.img_name }}"
+    src="media/{{ data.1.img_name }}"
     alt="WallPaper"
     class="wallpaper"
     srcset=""
@@ -29,6 +29,14 @@
     </div>
   </div>
   {% endfor %}
+</div>
+
+<div class="items-slide">
+  <img src="media/{{ data.2.img_name }}" alt="" srcset="" />
+  <h1 id="text">
+    Food is calling, the table's waiting. <br />Let's dine, let's fill our
+    hearts and plates.
+  </h1>
 </div>
 
 {% include "footer.html" %}
