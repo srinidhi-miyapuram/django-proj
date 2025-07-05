@@ -3,9 +3,10 @@ from .models import FoodItem, WallPaper
 
 # Create your views here.
 def index(request):
-    data = get_wallpaper()
+    item_cls = DataItems
+    data = item_cls.get_wallpaper()
     item_names = ['burger', 'pie']
-    items = get_items(item_names)
+    items = item_cls.get_items(item_names)
 
     return render(request, "index.html", {
         "data": data,
@@ -13,30 +14,40 @@ def index(request):
     })
 
 
-def get_data():
-    data = FoodItem.objects.all()
-    
-    return data
+def items_ls(request):
+    item_cls = DataItems
+    items = item_cls.get_all_items()
+    return render(request, "items.html", {
+        "items": items
+    })
 
 
-def get_item(item):
-    item = item.capitalize()
-    data = FoodItem.objects.filter(name=item)
-    # print(data[1],"======================")
-    return data
+class DataItems:
+    def get_data():
+        data = FoodItem.objects.all()
+        
+        return data
 
 
-def get_wallpaper():
-    data = WallPaper.objects.all()
-    return data
-
-def get_items(lis):
-    arr = []
-    for item in lis:
+    def get_item(item):
         item = item.capitalize()
         data = FoodItem.objects.filter(name=item)
-        # print(data[1],"=====================")
-        arr.append(data)
-    # print(arr[0], " ==================")
+        return data
+
+
+    def get_wallpaper():
+        data = WallPaper.objects.all()
+        return data
+
+    def get_items(lis):
+        arr = []
+        for item in lis:
+            item = item.capitalize()
+            data = FoodItem.objects.filter(name=item)
+            arr.append(data)
+        
+        return arr
     
-    return arr
+    def get_all_items():
+        data = FoodItem.objects.all()
+        return data

@@ -250,37 +250,31 @@ a > i {
   align-items: center;
   width: 80%;
   height: 80%;
-  /* background-color: rgba(252, 228, 181, 0.5); */
   border-radius: 50px;
   box-shadow: 5px 5px 5px 3px rgba(43, 38, 28, 0.5);
+  position: relative;
 }
 
-form > input,
+form input,
 textarea,
 button {
-  width: 80%;
+  display: block;
+  width: 100%;
   height: 2rem;
-  margin: 10px;
   padding: 10px;
+  margin-bottom: 10px;
   border: none;
   font-size: 20px;
   border-bottom: 2px solid white;
   background-color: transparent;
   color: white;
 }
-form > textarea {
-  min-width: 60%;
-  min-height: 30%;
-  width: 80%;
-  height: 30%;
-  max-height: 30%;
-  max-width: 80%;
-}
 
 form > button {
   width: 25%;
   height: 15%;
   background-color: white;
+  padding: 10px 0px;
   border: none;
   border-radius: 50px;
   font-size: 24px;
@@ -289,26 +283,45 @@ form > button {
   color: var(--navColor);
   font-family: var(--font-fam);
   cursor: pointer;
+  transition: 0.5s ease-in-out;
 }
 form > button:hover {
   border: 2px solid var(--navColor);
 }
-form > input:focus,
-textarea:focus {
+form > button:active {
+  transform: scale(1.2);
+}
+.form-data > input:focus,
+.form-data > input:valid,
+.form-data > textarea:focus {
   outline: none;
 }
-form > input::placeholder,
-textarea::placeholder {
+.form-data {
+  position: relative;
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+}
+.form-data > label {
+  position: absolute;
+  top: 15px;
+  width: 80%;
   color: white;
-  font-size: 15px;
-  transition: 500ms ease-in-out;
 }
-form > input:focus::placeholder {
-  transform: translateY(-20px);
+
+.form-data label span {
+  display: inline-block;
+  min-width: 5px;
+  font-size: 18px;
+  transition: 0.3s cubic-bezier(0.68, -1.5, 0.55, 1.3);
+  font-family: var(--font-fam);
 }
-form > textarea:focus::placeholder {
-  transform: translateY(-13px);
+
+.form-data input:focus + label span,
+.form-data textarea:focus + label span {
+  transform: translateY(-30px);
 }
+
 footer {
   display: flex;
   flex-direction: column;
