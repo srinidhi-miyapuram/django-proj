@@ -1,5 +1,7 @@
 {% include "header.html" %}
 
+{% load static %}
+
 <div class="img-gallery">
   <img
     src="media/{{ data.1.img_name }}"
@@ -9,7 +11,7 @@
   />
   <div class="title-tag">
     <h1 class="tagline">Eat Delecious Food, Incredible Health</h1>
-    <button type="submit" class="btn">Let's Buy</button>
+    <button type="submit" class="btn" onclick="redirect()">Let's Buy</button>
   </div>
 </div>
 
@@ -40,5 +42,7 @@
 </div>
 
 <div class="contactPage" id="contact">{% include "contact.html" %}</div>
+
+<script src="{% static "js/scrolling.js" %}"></script>
 
 {% include "footer.html" %}

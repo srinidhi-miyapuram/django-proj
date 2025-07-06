@@ -22,6 +22,12 @@ def items_ls(request):
     })
 
 
+def login_page(request):
+    return render(request, 'login.html')
+
+def register_page(request):
+    return render(request,'register.html')
+
 class DataItems:
     def get_data():
         data = FoodItem.objects.all()

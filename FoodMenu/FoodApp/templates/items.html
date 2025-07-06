@@ -1,5 +1,61 @@
 {% include "header.html" %}
 
-<div class="items-body">Hello Wrl</div>
+<div class="items-body" id="item-body">
+  <div class="choices">
+    <h2>Make Your Choice</h2>
+    <div class="check-choice">
+      <div class="choice">
+        <input type="checkbox" id="" name="non-veg" />
+        <label for="non-veg">Non-Vgg</label>
+      </div>
+      <div class="choice">
+        <input type="checkbox" id="" name="veg" />
+        <label for="veg">Vgg</label>
+      </div>
+      <hr />
+      <div class="choice">
+        <input type="checkbox" id="" name="dessert" />
+        <label for="dessert">Dessert</label>
+      </div>
+      <div class="choice">
+        <input type="checkbox" name="rice" id="" />
+        <label for="rice">Rice</label>
+      </div>
+      <div class="choice">
+        <input type="checkbox" id="" name="breakfast" />
+        <label for="breakfast">Breakfast</label>
+      </div>
+      <div class="choice">
+        <input type="checkbox" id="" name="snack" />
+        <label for="snack">Snacks</label>
+      </div>
+    </div>
+  </div>
+  <div class="items">
+    {% for item in items %}
+    <div class="item-id">
+      <img
+        src="media/{{ item.img_name }}"
+        alt="{{ item.name }}"
+        loading="lazy"
+      />
+      <h2 class="item-detail">{{ item.name }}</h2>
+
+      <h3 class="item-detail">Price: {{ item.price }}</h3>
+      <h4 class="item-detail">Rating: {{ item.rating }}</h4>
+      <div class="links">
+        <a
+          href="#"
+          onclick="popup('{{ item.name }}','{{ item.description }}', '{{ item.img_name }}', {{ item.price }}, '{{ item.rating }}')"
+          >Details</a
+        >
+        <a href="#">Add</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="item-id popup" id="popup"></div>
 
 {% include "footer.html" %}
