@@ -47,3 +47,7 @@ function restore() {
   popup_elem.style.visibility = "hidden";
   item_body.style.opacity = "1";
 }
+
+function show_data(data) {
+  console.log(data);
+}

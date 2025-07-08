@@ -4,35 +4,70 @@
   <div class="choices">
     <h2>Make Your Choice</h2>
     <div class="check-choice">
-      <div class="choice">
-        <input type="checkbox" id="" name="non-veg" />
-        <label for="non-veg">Non-Vgg</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" id="" name="veg" />
-        <label for="veg">Vgg</label>
-      </div>
-      <hr />
-      <div class="choice">
-        <input type="checkbox" id="" name="dessert" />
-        <label for="dessert">Dessert</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" name="rice" id="" />
-        <label for="rice">Rice</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" id="" name="breakfast" />
-        <label for="breakfast">Breakfast</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" id="" name="snack" />
-        <label for="snack">Snacks</label>
-      </div>
+      <form action="sort_items" method="post">
+        {% csrf_token %}
+        <div class="choice">
+          <input
+            type="checkbox"
+            onclick="show_data({{ json_data }})"
+            id=""
+            name="non-veg"
+          />
+          <label for="non-veg">Non-Vgg</label>
+        </div>
+        <div class="choice">
+          <input
+            type="checkbox"
+            onclick="show_data({{ json_data }})"
+            id=""
+            name="veg"
+          />
+          <label for="veg">Vgg</label>
+        </div>
+        <hr />
+        <div class="choice">
+          <input
+            type="checkbox"
+            onclick="show_data({{ json_data }})"
+            id=""
+            name="dessert"
+          />
+          <label for="dessert">Dessert</label>
+        </div>
+        <div class="choice">
+          <input
+            type="checkbox"
+            onclick="show_data({{ json_data }})"
+            name="rice"
+            id=""
+          />
+          <label for="rice">Rice</label>
+        </div>
+        <div class="choice">
+          <input
+            type="checkbox"
+            onclick="show_data({{ json_data }})"
+            id=""
+            name="breakfast"
+          />
+          <label for="breakfast">Breakfast</label>
+        </div>
+        <div class="choice">
+          <input
+            type="checkbox"
+            onclick="show_data({{ json_data }})"
+            id=""
+            name="snacks"
+          />
+          <label for="snacks">Snacks</label>
+        </div>
+        <button class="btn" type="submit">Apply</button>
+      </form>
     </div>
   </div>
   <div class="items">
-    {% for item in items %}
+    {% for elem in items %} {% if elem|length > 0 %} {% for item in elem %}
+
     <div class="item-id">
       <img
         src="media/{{ item.img_name }}"
@@ -52,7 +87,11 @@
         <a href="#">Add</a>
       </div>
     </div>
-    {% endfor %}
+    {% endfor %} {% else %}
+    <div class="no_items">
+      <h3>No Items Found</h3>
+    </div>
+    {% endif %} {% endfor %}
   </div>
 </div>
 

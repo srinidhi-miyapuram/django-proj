@@ -1,0 +1,20 @@
+{% include "header.html" %}
+
+<div class="login">
+  <div class="contact">
+    <form action="login" method="post" class="form">
+      {% csrf_token %}
+      <div class="form-data">
+        <input type="text" name="name" id="" />
+        <label for="name" class="form-label">UserName</label>
+      </div>
+      <div class="form-data">
+        <input type="password" name="passwd" id="" />
+        <label for="passwd" class="form-label">Password</label>
+      </div>
+      <button class="btn1">Login</button>
+    </form>
+  </div>
+</div>
+
+{% include "footer.html" %}

@@ -227,7 +227,7 @@ a > i {
   width: 80%;
   height: 90%;
   justify-items: center;
-  align-items: center;
+  align-content: center;
   mix-blend-mode: multiply;
   background-color: var(--navColor);
   border: 2px solid white;
@@ -243,7 +243,7 @@ a > i {
   color: white;
 }
 
-.contact > form {
+.contact > .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -255,7 +255,7 @@ a > i {
   position: relative;
 }
 
-form input,
+.form input,
 textarea,
 button {
   display: block;
@@ -272,7 +272,7 @@ button {
 
 .btn1 {
   width: 25%;
-  height: 15%;
+  height: 17%;
   background-color: white;
   padding: 10px 0px;
   border: none;
@@ -462,4 +462,26 @@ hr {
 .item-price {
   display: flex;
   flex-direction: row;
+}
+
+.no_items {
+  color: var(--navColor);
+  position: relative;
+  width: 100%;
+  justify-items: center;
+  align-content: center;
+}
+.no_items h3 {
+  font-size: 30px;
+  font-family: var(--font-fam);
+}
+
+/* Login Page */
+.login {
+  width: 100%;
+  height: 500px;
+  margin: 10px 0px;
+  position: relative;
+  justify-items: center;
+  align-content: center;
 }
