@@ -1,10 +1,18 @@
 {% include "header.html" %}
 
+<div class="search_optn">
+  <form action="{% url 'items' %}" method="get" class="search_form">
+    {% csrf_token %}
+    <input type="text" name="item_name" />
+    <button class="btn1 search_btn">Search</button>
+  </form>
+</div>
+
 <div class="items-body" id="item-body">
   <div class="choices">
     <h2>Make Your Choice</h2>
     <div class="check-choice">
-      <form action="sort_items" method="post">
+      <form action="{% url 'items' %}" method="post">
         {% csrf_token %}
         <div class="choice">
           <input
@@ -61,7 +69,7 @@
           />
           <label for="snacks">Snacks</label>
         </div>
-        <button class="btn" type="submit">Apply</button>
+        <button class="btn apply_btn" type="submit">Apply</button>
       </form>
     </div>
   </div>
@@ -94,6 +102,38 @@
     {% endif %} {% endfor %}
   </div>
 </div>
+{% if items.0|length >= 4 %}
+<div class="pagination">
+  <ul>
+    {% if items.0.has_previous %}
+    <li class="page_pag">
+      <a href="?page={{ items.0.previous_page_number }}"
+        ><i class="fa-solid fa-angles-left"></i>Previous</a
+      >
+    </li>
+    {% else %}
+    <li class="page_pag">
+      <a href="?page={{ items.0.number }}"
+        ><i class="fa-solid fa-angles-left"></i>Previous</a
+      >
+    </li>
+    {% endif %} {% if items.0.has_next %}
+
+    <li class="page_pag">
+      <a href="?page={{ items.0.next_page_number }}"
+        >Next<i class="fa-solid fa-angles-right"></i
+      ></a>
+    </li>
+    {% else %}
+    <li class="page_pag">
+      <a href="?page={{ items.0.number }}"
+        >Next<i class="fa-solid fa-angles-right"></i
+      ></a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}
 
 <div class="item-id popup" id="popup"></div>
 

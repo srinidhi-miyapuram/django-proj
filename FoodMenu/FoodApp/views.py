@@ -1,7 +1,13 @@
 from django.shortcuts import render
-from django.core.serializers import serialize
 from .models import FoodItem, WallPaper
-import json
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import UserForm
+from django.core.paginator import Paginator
+
+
 
 # Create your views here.
 def index(request):
@@ -13,59 +19,103 @@ def index(request):
     return render(request, "index.html", {
         "data": data,
         'items':items,
+        'url_contact': "#contact"
     })
 
 
+@login_required(login_url='login')
 def items_ls(request):
     item_cls = DataItems
-    items = [item_cls.get_all_items()]
-    return render(request, "items.html", {
-        "items": items,
+    items = []
+    # Search Item
+    if request.method == "GET":
+        item_name = request.GET.get('item_name')
+        print(item_name, ' ===================')
+
+        if item_name != '' and item_name is not None:
+            items.append(item_cls.get_filter_search_item(item_name))
+        else:
+            items.append(item_cls.get_all_items())
+        
+        
+        
+    elif request.method == "POST":
+        data = {}
+        data['food_type'] = []
+        data['item_type'] = []
+        # Checking what are the choices user made
+        if request.POST.getlist('non-veg'):
+            data['food_type'].append('non-veg')
+        if request.POST.getlist('veg'):
+            data['food_type'].append('veg')
+        if request.POST.getlist('dessert'):
+            data['item_type'].append('dessert')
+        if request.POST.getlist('rice'):
+            data['item_type'].append('rice')
+        if request.POST.getlist('snacks'):
+            data['item_type'].append('snacks')
+        if request.POST.getlist('breakfast'):
+            data['item_type'].append('breakfast')
+        items.append(item_cls.get_filter_items(data['food_type'], data['item_type']))
+    
+
+    # Pagination
+    paginator = Paginator(items[0],4)
+    page = request.GET.get('page')
+    items = [paginator.get_page(page)]
+
+    return render(request, 'items.html', {
+        'items': items,
+        'url_contact': '/',
     })
 
-def sort_items(request):
-    items_ls = DataItems
-    data = {}
-    data['food_type'] = []
-    data['item_type'] = []
-    # Checking what are the choices user made
-    if request.POST.getlist('non-veg'):
-        data['food_type'].append('non-veg')
-    if request.POST.getlist('veg'):
-        data['food_type'].append('veg')
-    if request.POST.getlist('dessert'):
-        data['item_type'].append('dessert')
-    if request.POST.getlist('rice'):
-        data['item_type'].append('rice')
-    if request.POST.getlist('snacks'):
-        data['item_type'].append('snacks')
-    if request.POST.getlist('breakfast'):
-        data['item_type'].append('breakfast')
-    items = [items_ls.get_filter_items(data['food_type'], data['item_type'])]
-    
-    return render(request, 'items.html', {
-        'items': items
-    })
+
+
 
 def login_page(request):
-    return render(request, 'login.html')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        passwd = request.POST.get("passwd")
+
+        user = authenticate(username=name, password=passwd)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('items'))
+            else:
+                return HttpResponse("User is not active")
+        else:
+            return HttpResponse("User Not Found")
+    else:
+        return render(request, 'login.html', {
+            'url_contact': '/',
+        })
 
 def register_page(request):
-    return render(request,'register.html')
+    registered = False
+    if request.method == "POST":
+        password = request.POST.get('password1')
+        user = UserForm(request.POST)
+        if user.is_valid():
+            user_commit = user.save(commit=False)
+            user_commit.set_password(password)
+            user.save()
+            registered = True
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponse(user.errors)
+    else:
+        user = UserForm()
+        return render(request,'register.html', {
+            'user_form': user,
+            'registered':registered,
+            'url_contact': '/',
+        })
 
 class DataItems:
-    def get_data():
-        data = FoodItem.objects.all()
-        
-        return data
 
-
-    def get_item(item):
-        item = item.capitalize()
-        data = FoodItem.objects.filter(name=item)
-        return data
-
-
+  
     def get_wallpaper():
         data = WallPaper.objects.all()
         return data
@@ -83,7 +133,10 @@ class DataItems:
         data = FoodItem.objects.all()
         return data
     
-  
+
+    def get_filter_search_item(item_name):
+        item_name = item_name.capitalize()
+        return FoodItem.objects.filter(name__icontains=item_name)
 
     def get_filter_items(food_type, item_type):
         # Here __in will loop through all the list elements and gives us the output

@@ -34,13 +34,15 @@
           <a href="/items"><i class="fa-solid fa-utensils"></i>Items</a>
         </li>
         <li>
-          <a href="#contact"><i class="fa-solid fa-paper-plane"></i>Contact</a>
+          <a href="{{ url_contact }}"
+            ><i class="fa-solid fa-paper-plane"></i>Contact</a
+          >
         </li>
         <li>
           <a href="#"><i class="fas fa-shopping-cart"></i>Cart</a>
         </li>
         <li>
-          <a href="/login"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+          <a href="{% url "login" %}"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
         </li>
       </ul>
     </nav>

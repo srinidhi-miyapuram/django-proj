@@ -3,15 +3,15 @@
   <form action="#" method="post" class="form">
     {% csrf_token %}
     <div class="form-data">
-      <input type="text" id="name" name="name" />
+      <input type="text" id="name" name="name" class="input-data" />
       <label for="name" class="form-label">Name</label>
     </div>
     <div class="form-data">
-      <input type="email" name="email" />
+      <input type="email" name="email" class="input-data" />
       <label for="email" class="form-label">Email</label>
     </div>
     <div class="form-data">
-      <textarea name="message" id="" rows="20"></textarea>
+      <textarea name="message" class="input-data" rows="20"></textarea>
       <label for="message" class="form-label">We Need Your Message</label>
     </div>
     <button class="btn1" type="submit">Submit</button>
