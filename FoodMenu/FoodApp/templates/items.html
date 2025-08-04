@@ -1,5 +1,6 @@
 {% include "header.html" %}
-
+{% load static %}
+{% csrf_token %}
 <div class="search_optn">
   <form action="{% url 'items' %}" method="get" class="search_form">
     {% csrf_token %}
@@ -7,7 +8,6 @@
     <button class="btn1 search_btn">Search</button>
   </form>
 </div>
-
 <div class="items-body" id="item-body">
   <div class="choices">
     <h2>Make Your Choice</h2>
@@ -15,58 +15,43 @@
       <form action="{% url 'items' %}" method="post">
         {% csrf_token %}
         <div class="choice">
-          <input
-            type="checkbox"
-            onclick="show_data({{ json_data }})"
-            id=""
-            name="non-veg"
-          />
+          <input type="checkbox"
+                 onclick="show_data({{ json_data }})"
+                 id=""
+                 name="non-veg" />
           <label for="non-veg">Non-Vgg</label>
         </div>
         <div class="choice">
-          <input
-            type="checkbox"
-            onclick="show_data({{ json_data }})"
-            id=""
-            name="veg"
-          />
+          <input type="checkbox" onclick="show_data({{ json_data }})" id="" name="veg" />
           <label for="veg">Vgg</label>
         </div>
         <hr />
         <div class="choice">
-          <input
-            type="checkbox"
-            onclick="show_data({{ json_data }})"
-            id=""
-            name="dessert"
-          />
+          <input type="checkbox"
+                 onclick="show_data({{ json_data }})"
+                 id=""
+                 name="dessert" />
           <label for="dessert">Dessert</label>
         </div>
         <div class="choice">
-          <input
-            type="checkbox"
-            onclick="show_data({{ json_data }})"
-            name="rice"
-            id=""
-          />
+          <input type="checkbox"
+                 onclick="show_data({{ json_data }})"
+                 name="rice"
+                 id="" />
           <label for="rice">Rice</label>
         </div>
         <div class="choice">
-          <input
-            type="checkbox"
-            onclick="show_data({{ json_data }})"
-            id=""
-            name="breakfast"
-          />
+          <input type="checkbox"
+                 onclick="show_data({{ json_data }})"
+                 id=""
+                 name="breakfast" />
           <label for="breakfast">Breakfast</label>
         </div>
         <div class="choice">
-          <input
-            type="checkbox"
-            onclick="show_data({{ json_data }})"
-            id=""
-            name="snacks"
-          />
+          <input type="checkbox"
+                 onclick="show_data({{ json_data }})"
+                 id=""
+                 name="snacks" />
           <label for="snacks">Snacks</label>
         </div>
         <button class="btn apply_btn" type="submit">Apply</button>
@@ -74,67 +59,54 @@
     </div>
   </div>
   <div class="items">
-    {% for elem in items %} {% if elem|length > 0 %} {% for item in elem %}
-
-    <div class="item-id">
-      <img
-        src="media/{{ item.img_name }}"
-        alt="{{ item.name }}"
-        loading="lazy"
-      />
-      <h2 class="item-detail">{{ item.name }}</h2>
-
-      <h3 class="item-detail">Price: {{ item.price }}</h3>
-      <h4 class="item-detail">Rating: {{ item.rating }}</h4>
-      <div class="links">
-        <a
-          href="#"
-          onclick="popup('{{ item.name }}','{{ item.description }}', '{{ item.img_name }}', {{ item.price }}, '{{ item.rating }}')"
-          >Details</a
-        >
-        <a href="#">Add</a>
-      </div>
-    </div>
-    {% endfor %} {% else %}
-    <div class="no_items">
-      <h3>No Items Found</h3>
-    </div>
-    {% endif %} {% endfor %}
+    {% for elem in items %}
+      {% if elem|length > 0 %}
+        {% for item in elem %}
+          <div class="item-id">
+            <img src="media/{{ item.img_name }}" alt="{{ item.name }}" loading="lazy" />
+            <h2 class="item-detail">{{ item.name }}</h2>
+            <h3 class="item-detail">Price: {{ item.price }}</h3>
+            <h4 class="item-detail">Rating: {{ item.rating }}</h4>
+            <div class="links">
+              <a href="#"
+                 onclick="popup('{{ item.name }}','{{ item.description }}', '{{ item.img_name }}', {{ item.price }}, '{{ item.rating }}')">Details</a>
+              <button id="{{ item.id }}" class='add_btn'>Add</button>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="no_items">
+          <h3>No Items Found</h3>
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
 {% if items.0|length >= 4 %}
-<div class="pagination">
-  <ul>
-    {% if items.0.has_previous %}
-    <li class="page_pag">
-      <a href="?page={{ items.0.previous_page_number }}"
-        ><i class="fa-solid fa-angles-left"></i>Previous</a
-      >
-    </li>
-    {% else %}
-    <li class="page_pag">
-      <a href="?page={{ items.0.number }}"
-        ><i class="fa-solid fa-angles-left"></i>Previous</a
-      >
-    </li>
-    {% endif %} {% if items.0.has_next %}
-
-    <li class="page_pag">
-      <a href="?page={{ items.0.next_page_number }}"
-        >Next<i class="fa-solid fa-angles-right"></i
-      ></a>
-    </li>
-    {% else %}
-    <li class="page_pag">
-      <a href="?page={{ items.0.number }}"
-        >Next<i class="fa-solid fa-angles-right"></i
-      ></a>
-    </li>
-    {% endif %}
-  </ul>
-</div>
+  <div class="pagination">
+    <ul>
+      {% if items.0.has_previous %}
+        <li class="page_pag">
+          <a href="?page={{ items.0.previous_page_number }}"><i class="fa-solid fa-angles-left"></i>Previous</a>
+        </li>
+      {% else %}
+        <li class="page_pag">
+          <a href="?page={{ items.0.number }}"><i class="fa-solid fa-angles-left"></i>Previous</a>
+        </li>
+      {% endif %}
+      {% if items.0.has_next %}
+        <li class="page_pag">
+          <a href="?page={{ items.0.next_page_number }}">Next<i class="fa-solid fa-angles-right"></i></a>
+        </li>
+      {% else %}
+        <li class="page_pag">
+          <a href="?page={{ items.0.number }}">Next<i class="fa-solid fa-angles-right"></i></a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
 {% endif %}
-
 <div class="item-id popup" id="popup"></div>
-
+<script id="my-data" type="applicatin/json">{{items_all|safe}}</script>
+<script src="{% static 'js/cart_items.js' %}"></script>
 {% include "footer.html" %}

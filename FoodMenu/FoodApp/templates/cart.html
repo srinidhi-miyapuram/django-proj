@@ -1,0 +1,16 @@
+{% include "header.html" %}
+{% load static %}
+<div class="cart">
+    <div class="cart_items">
+        {% for item in cart_ls %}
+            <div class="item-id">
+                <p>{{ item.cart }}</p>
+                {% comment %} <img src="media/{{ item.img_name }}" alt="{{ item.name }}" loading="lazy" /> {% endcomment %}
+                {% comment %} <h2 class="item-detail">{{ item.name }}</h2>
+                <h3 class="item-detail">Price: {{ item.price }}</h3> {% endcomment %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="{% static 'js/cart_items.js' %}"></script>
+{% include "footer.html" %}

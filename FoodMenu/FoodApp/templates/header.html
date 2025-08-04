@@ -1,27 +1,22 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static "styles/main.css" %}">
-    <link
-      href="{% static 'fontawesomefree/css/fontawesome.css' %}"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="{% static 'fontawesomefree/css/solid.css' %}"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="{% static 'fontawesomefree/css/brands.css' %}"
-      rel="stylesheet"
-      type="text/css"
-    />
-
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="{% static 'fontawesomefree/css/solid.css' %}"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="{% static 'fontawesomefree/css/brands.css' %}"
+          rel="stylesheet"
+          type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
     <title>Food App</title>
   </head>
   <body>
@@ -34,12 +29,10 @@
           <a href="/items"><i class="fa-solid fa-utensils"></i>Items</a>
         </li>
         <li>
-          <a href="{{ url_contact }}"
-            ><i class="fa-solid fa-paper-plane"></i>Contact</a
-          >
+          <a href="{{ url_contact }}"><i class="fa-solid fa-paper-plane"></i>Contact</a>
         </li>
         <li>
-          <a href="#"><i class="fas fa-shopping-cart"></i>Cart</a>
+          <a href="{% url 'cart' %}" id="cart"><i class="fas fa-shopping-cart"></i>Cart</a>
         </li>
         <li>
           <a href="{% url "login" %}"><i class="fa-solid fa-right-to-bracket"></i>Login</a>

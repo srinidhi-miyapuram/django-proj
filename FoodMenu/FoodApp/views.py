@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from .models import FoodItem, WallPaper
+from .models import FoodItem, WallPaper, UserCartItems
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import UserForm
 from django.core.paginator import Paginator
-
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -26,11 +28,11 @@ def index(request):
 @login_required(login_url='login')
 def items_ls(request):
     item_cls = DataItems
+    items_all = json.dumps(list(FoodItem.objects.values('id', 'img_name', 'price', 'name')))
     items = []
     # Search Item
     if request.method == "GET":
         item_name = request.GET.get('item_name')
-        print(item_name, ' ===================')
 
         if item_name != '' and item_name is not None:
             items.append(item_cls.get_filter_search_item(item_name))
@@ -67,6 +69,7 @@ def items_ls(request):
     return render(request, 'items.html', {
         'items': items,
         'url_contact': '/',
+        'items_all': items_all,
     })
 
 
@@ -113,6 +116,19 @@ def register_page(request):
             'url_contact': '/',
         })
 
+@csrf_exempt
+def cart_page(request):
+    print(request.user, request.body, " ================")
+    user_auth = User.objects.filter(username=request.user).exists()
+    cart_ls = ""
+    if user_auth:
+        cart_ls = DataItems.update_cart(request.user, request.body)
+
+    return render(request,'cart.html', {
+        'cart_ls': cart_ls,
+    })
+
+
 class DataItems:
 
   
@@ -147,3 +163,8 @@ class DataItems:
         elif len(item_type) > 0:
             return FoodItem.objects.filter(item_type__in=item_type)
         
+    
+    def update_cart(user, cart):
+        user_cart = UserCartItems(user=user, cart=cart)
+        user_cart.save()
+        return UserCartItems.objects.all()

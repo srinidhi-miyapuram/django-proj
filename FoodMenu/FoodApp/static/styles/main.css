@@ -436,8 +436,14 @@ footer h5 {
   font-family: var(--font-fam);
   font-weight: bolder;
 }
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.links > a {
+.links > a,
+button {
   text-decoration: none;
   color: var(--navColor);
   font-family: var(--font-fam);
@@ -449,6 +455,15 @@ footer h5 {
   border-radius: 20px;
   text-align: center;
   display: inline-block;
+}
+
+.add_btn {
+  display: inline-block;
+  width: 40%;
+  height: 45px;
+  margin: 0;
+  margin-left: 10px;
+  cursor: pointer;
 }
 .choices {
   display: flex;
